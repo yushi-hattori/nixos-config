@@ -37,6 +37,21 @@
         "type": "github"
       }
     },
+    "nixCats": {
+      "locked": {
+        "lastModified": 1742667932,
+        "narHash": "sha256-2ePWtyLqzrn1dMyxxm7MrpbmWNsFYp1GolJehaZh2K0=",
+        "owner": "BirdeeHub",
+        "repo": "nixCats-nvim",
+        "rev": "2ae3e08fbda6e5c1099bc399f96be4138e433738",
+        "type": "github"
+      },
+      "original": {
+        "owner": "BirdeeHub",
+        "repo": "nixCats-nvim",
+        "type": "github"
+      }
+    },
     "nixos-wsl": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -89,11 +104,49 @@
         "type": "github"
       }
     },
+    "nixpkgs_3": {
+      "locked": {
+        "lastModified": 1742578646,
+        "narHash": "sha256-GiQ40ndXRnmmbDZvuv762vS+gew1uDpFwOfgJ8tLiEs=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "94c4dbe77c0740ebba36c173672ca15a7926c993",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nvim-nixcats": {
+      "inputs": {
+        "nixCats": "nixCats",
+        "nixpkgs": "nixpkgs_3"
+      },
+      "locked": {
+        "dir": "templates/example",
+        "lastModified": 1742691776,
+        "narHash": "sha256-IFiU8VYUPu7Zcyu/TpnIVwFMuXSMaDUQ8wF+h6XyU1A=",
+        "owner": "BirdeeHub",
+        "repo": "nixCats-nvim",
+        "rev": "6309d22e072fac54ddc1faceedf9b4a2f534cb5b",
+        "type": "github"
+      },
+      "original": {
+        "dir": "templates/example",
+        "owner": "BirdeeHub",
+        "repo": "nixCats-nvim",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "home-manager": "home-manager",
         "nixos-wsl": "nixos-wsl",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_2",
+        "nvim-nixcats": "nvim-nixcats"
       }
     }
   },

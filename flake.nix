@@ -8,6 +8,9 @@
       url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nvim-nixcats = {
+      url = "github:BirdeeHub/nixCats-nvim?dir=templates/example";
+    };
   };
 
   outputs = { self, nixpkgs, nixos-wsl, home-manager, ... }@inputs: 
@@ -18,6 +21,7 @@
       specialArgs = { inherit inputs; };
       modules = [
         ./configuration.nix
+	# ./modules/nixCats/default.nix
         nixos-wsl.nixosModules.default
 	{
 	  system.stateVersion = "24.11";
@@ -25,12 +29,13 @@
 	  wsl.defaultUser = "yhattori";
 	}
 
-	home-manager.nixosModules.home-manager {
-	  home-manager.useGlobalPkgs = true;
-	  home-manager.useUserPackages = true;
-
-	  home-manager.users.yhattori = import ./home.nix;
-          # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
+	home-manager.nixosModules.home-manager 
+	{
+	  home-manager = {
+	    useGlobalPkgs = true;
+	    useUserPackages = true;
+	    users.yhattori = import ./home.nix;
+	  };
 	}
       ];
     };
