@@ -1,5 +1,5 @@
 {
-  description = "A very basic flake";
+  description = "My nixos flake";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
@@ -8,20 +8,25 @@
       url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nvim-nixcats = {
-      url = "github:BirdeeHub/nixCats-nvim?dir=templates/example";
+    nixCats = {
+      url = "github:BirdeeHub/nixCats-nvim";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, nixos-wsl, home-manager, ... }@inputs: 
+  outputs = { self, nixpkgs, nixos-wsl, home-manager, nixCats, ... }@inputs: 
+  let
+    system = "x86_64-linux";
+    pkgs = nixpkgs.legacyPackages.${system};
+  in
   {
+    # nixpkgs.overlays = inputs.<repo-name>.overlays.default;
     # Builds the nixos host -> `Use sudo nixos-rebuild switch --flake .`
     nixosConfigurations."nixos" = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
+      inherit system;
       specialArgs = { inherit inputs; };
       modules = [
         ./configuration.nix
-	# ./modules/nixCats/default.nix
         nixos-wsl.nixosModules.default
 	{
 	  system.stateVersion = "24.11";
@@ -32,9 +37,14 @@
 	home-manager.nixosModules.home-manager 
 	{
 	  home-manager = {
+	    extraSpecialArgs = { inherit inputs; };
 	    useGlobalPkgs = true;
 	    useUserPackages = true;
-	    users.yhattori = import ./home.nix;
+	    users.yhattori = { 
+	      imports = [
+	        ./home.nix
+	      ];
+	    };
 	  };
 	}
       ];

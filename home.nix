@@ -1,6 +1,6 @@
-{ pkgs, ... }:
-
-{
+{ config, pkgs, inputs, lib, ... }: let
+  utils = inputs.nixCats.utils;
+in {
   imports = [
     ./programs/default.nix
   ];
@@ -12,23 +12,20 @@
     packages = with pkgs; [
       neofetch
       nnn # terminal file manager
-
-      # archives
-      # zip
-      # xz
-      # unzip
-      # p7zip
-
+      zoxide
+      git
+      zellij
       # utils
       ripgrep # recursively search directories for a regex pattern
       jq # A lightweight and flexible command-line JSON processor
       # yq-go # yaml processor https://github.com/mikefarah/yq
       eza # a modern replacement for 'ls'
       fzf # a command-line fuzzy finder
+      lazygit
+      zoxide
     ];
   };
 
-  # Let home Manager install and manage itself.
+   # Let home Manager install and manage itself.
   programs.home-manager.enable = true;
-
 }

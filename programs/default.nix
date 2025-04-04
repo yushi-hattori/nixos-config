@@ -4,6 +4,6 @@
   imports = [
     ./git.nix
     ./bash.nix
-    ./nixCats.nix
+    ./nixCats/default.nix
   ];
 }
