@@ -4,6 +4,7 @@
   imports = [
     ./git.nix
     ./bash.nix
+    ./lazygit.nix
     ./nixCats/default.nix
   ];
 }

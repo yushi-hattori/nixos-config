@@ -64,10 +64,12 @@ in {
             plenary-nvim
             nvim-notify
             snacks-nvim
+            mini-nvim
             onedark-nvim
             vim-sleuth
             oil-nvim
             nvim-web-devicons
+            lazy-nvim
           ];
           debug = with pkgs.vimPlugins; [
             nvim-nio
@@ -216,9 +218,9 @@ in {
           # they contain a settings set defined above
           # see :help nixCats.flake.outputs.settings
           settings = {
-            wrapRc = true;
+            wrapRc = false;
             # configDirName = "nvim";
-            # unwrappedCfgPath = "/path/to/here";
+            unwrappedCfgPath = "${config.home.homeDirectory}/nixos-config/programs/nixCats/";
             # IMPORTANT:
             # your alias may not conflict with your other packages.
             aliases = [ "nvim" "vim" ];
