@@ -93,6 +93,8 @@ in {
               "catppuccin-mocha" = catppuccin-nvim;
               "tokyonight" = tokyonight-nvim;
               "tokyonight-day" = tokyonight-nvim;
+              "nightfox" = nightfox-nvim;
+              "carbonfox" = nightfox-nvim;
             }
           );
         };
@@ -239,7 +241,7 @@ in {
             lint = true;
             format = true;
             themer = true;
-            colorscheme = "onedark";
+            colorscheme = "nightfox";
           };
           # anything else to pass and grab in lua with `nixCats.extra`
           extra = {

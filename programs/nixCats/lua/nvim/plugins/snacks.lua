@@ -29,6 +29,12 @@ vim.keymap.set('n', '<leader>ft', function()
   Snacks.terminal(nil, { win = { position = "float" } })
 end, { desc = 'Open Floating Snacks Terminal' })
 
+-- Opens LazyGit
+vim.keymap.set('n', '<leader>gl', function()
+  Snacks.lazygit()
+end, { desc = 'Open Lazygit' })
+
+
 require('snacks').setup({
   animate = { enabled = true },
   bigfile = { enabled = true },
@@ -46,7 +52,7 @@ require('snacks').setup({
   bufdelete = { enabled = true },
   rename = { enabled = true },
   scratch = { enabled = true },
-  scroll = { enabled = true, animate = { duration = { step = 20, total = 75 }, easing = "linear" } },
+  scroll = { enabled = false, animate = { duration = { step = 20, total = 75 }, easing = "linear" } },
   statuscolumn = { enabled = true },
   terminal = { enabled = true, win = { position = "float" } },
   scope = { enabled = true },
