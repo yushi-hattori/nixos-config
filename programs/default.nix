@@ -7,5 +7,7 @@
     ./lazygit.nix
     ./nixCats/default.nix
     ./zellij.nix
+    ./zsh.nix
+    ./zoxide.nix
   ];
 }

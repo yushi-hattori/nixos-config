@@ -21,6 +21,7 @@ in {
       eza # a modern replacement for 'ls'
       fzf # a command-line fuzzy finder
       zoxide
+      xclip
     ];
   };
 

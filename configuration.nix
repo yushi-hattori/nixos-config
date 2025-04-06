@@ -15,9 +15,12 @@
   # Set the default editor to nvim
   environment.variables.EDITOR = "nvim";
 
+  programs.zsh.enable = true;
+
   users.users.yhattori = {
     isNormalUser = true;
     home = "/home/yhattori";
     extraGroups = [ "wheel" "networkmanager" ];
+    shell = pkgs.zsh;
   }; 
 }

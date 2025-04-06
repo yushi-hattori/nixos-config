@@ -70,6 +70,7 @@ in {
             oil-nvim
             nvim-web-devicons
             lazy-nvim
+            noice-nvim
           ];
           debug = with pkgs.vimPlugins; [
             nvim-nio
