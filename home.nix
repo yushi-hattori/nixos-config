@@ -14,14 +14,12 @@ in {
       nnn # terminal file manager
       zoxide
       git
-      zellij
       # utils
       ripgrep # recursively search directories for a regex pattern
       jq # A lightweight and flexible command-line JSON processor
       # yq-go # yaml processor https://github.com/mikefarah/yq
       eza # a modern replacement for 'ls'
       fzf # a command-line fuzzy finder
-      lazygit
       zoxide
     ];
   };

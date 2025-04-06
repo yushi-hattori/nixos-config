@@ -2,8 +2,10 @@
 {
   programs.zellij = {
     enable = true;
+    enableBashIntegration = true;
+    enableZshIntegration = true;
     settings = {
-      theme = "onedark";
+      theme = "nightfox";
     };
   };
 }

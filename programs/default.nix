@@ -6,5 +6,6 @@
     ./bash.nix
     ./lazygit.nix
     ./nixCats/default.nix
+    ./zellij.nix
   ];
 }
