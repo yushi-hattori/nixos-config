@@ -64,6 +64,7 @@ if nixCats('general.extra') then
 end
 
 require("nvim.plugins.snacks")
+require("nvim.plugins.noice")
 
 require('lze').load {
   { import = "nvim.plugins.telescope", },

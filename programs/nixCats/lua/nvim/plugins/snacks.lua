@@ -34,6 +34,67 @@ vim.keymap.set('n', '<leader>gl', function()
   Snacks.lazygit()
 end, { desc = 'Open Lazygit' })
 
+-- Same help function and :H command as before
+local M = {}
+local function open_help_snack(tag)
+  if not tag or tag == "" then return end
+
+  local tagfile = vim.fn.globpath(vim.o.runtimepath, "doc/tags", false, true)
+  local tagline = nil
+
+  for _, file in ipairs(tagfile) do
+    for line in io.lines(file) do
+      local t, file_path, cmd = line:match("([^\t]+)\t([^\t]+)\t(.+)")
+      if t == tag then
+        tagline = { file_path = file_path, cmd = cmd }
+        break
+      end
+    end
+    if tagline then break end
+  end
+
+  if not tagline then
+    vim.notify("Help tag not found: " .. tag, vim.log.levels.ERROR)
+    return
+  end
+
+  local doc_paths = vim.api.nvim_get_runtime_file("doc/" .. tagline.file_path, false)
+  local help_file = doc_paths[1]
+  if not help_file then
+    vim.notify("Help file not found: " .. tagline.file_path, vim.log.levels.ERROR)
+    return
+  end
+
+  Snacks.win({
+    file = help_file,
+    width = 0.9,
+    height = 0.9,
+    wo = {
+      spell = false,
+      wrap = false,
+      signcolumn = "yes",
+      statuscolumn = " ",
+      conceallevel = 3,
+    },
+    cursor = { tagline.cmd:match("/%^(.-)%$/") or 1, 0 },
+  })
+end
+
+M.open_help_snack = open_help_snack
+
+-- Create :H command with help completion
+vim.api.nvim_create_user_command("H", function(opts)
+  open_help_snack(opts.args)
+end, {
+  nargs = 1,
+  complete = "help",
+})
+
+-- Map <leader>h to simulate typing ":H "
+vim.keymap.set("n", "<leader>h", function()
+  vim.api.nvim_feedkeys(":H ", "n", false)
+end, { desc = "Open :H with help completion" })
+
 
 require('snacks').setup({
   animate = { enabled = true },
@@ -48,7 +109,7 @@ require('snacks').setup({
   layout = { enabled = true },
   lazygit = { enabled = true },
   notifier = { enabled = true },
-  profiler = { enabled = true },
+  -- profiler = { enabled = false },
   bufdelete = { enabled = true },
   rename = { enabled = true },
   scratch = { enabled = true },
@@ -58,4 +119,7 @@ require('snacks').setup({
   scope = { enabled = true },
   indent = { enabled = true },
   gitbrowse = { enabled = true },
+  win = { enabled = true },
 })
+
+return M
