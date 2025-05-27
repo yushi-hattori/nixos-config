@@ -1,34 +1,85 @@
 plugins {
     // Define the "autolock" plugin.
-    // if experiencing error, download from releasse page and change "https://..." to "file:~/path/to/zellij-autolock.wasm"
     autolock location="https://github.com/fresh2dev/zellij-autolock/releases/latest/download/zellij-autolock.wasm" {
-        triggers "nvim|vim"  // Lock when any open these programs open. They are expected to unlock themselves when closed (e.g., using zellij.vim plugin).
-        watch_triggers "fzf|zoxide|atuin"  // Lock when any of these open and monitor until closed.
-        watch_interval "1.0"  // When monitoring, check every X seconds.
+        // Enabled at start?
+        is_enabled true
+        // Lock when any open these programs open.
+        triggers "nvim|vim|git|fzf|zoxide|atuin"
+        // Reaction to input occurs after this many seconds. (default=0.3)
+        // (An existing scheduled reaction prevents additional reactions.)
+        reaction_seconds "0.3"
+        // Print to Zellij log? (default=false)
+        print_to_log true
     }
     //...
 }
+// Load this "headless" plugin on start.
+load_plugins {
+    autolock
+}
 keybinds {
-    // Normal mode bindings to activate zellij-autolock by intercepting `Enter`,then passing it through to the terminal.
+    // Keybindings specific to 'Normal' mode.
     normal {
+        // Intercept `Enter`.
         bind "Enter" {
+            // Passthru `Enter`.
             WriteChars "\u{000D}";
+            // Invoke autolock to immediately assess proper lock state.
+            // (This provides a snappier experience compared to
+            // solely relying on `reaction_seconds` to elapse.)
             MessagePlugin "autolock" {};
         }
         //...
     }
-    shared_except "locked" {
-        bind "Ctrl g" { SwitchToMode "Locked"; }
-        bind "Ctrl q" { Detach; }
-        bind "Alt q" { Quit; }
-        bind "Alt n" { NewPane; }
-        bind "Alt h" "Alt Left" { MoveFocusOrTab "Left"; }
-        bind "Alt l" "Alt Right" { MoveFocusOrTab "Right"; }
-        bind "Alt j" "Alt Down" { MoveFocus "Down"; }
-        bind "Alt k" "Alt Up" { MoveFocus "Up"; }
-        bind "Alt =" "Alt +" { Resize "Increase"; }
-        bind "Alt -" { Resize "Decrease"; }
-        bind "Alt [" { PreviousSwapLayout; }
-        bind "Alt ]" { NextSwapLayout; }
+    // Keybindings specific to 'Locked' mode.
+    locked {
+        bind "Alt z" {
+            // Disable the autolock plugin.
+            MessagePlugin "autolock" {payload "disable";};
+            // Unlock Zellij.
+            SwitchToMode "Normal";
+        }
+        //...
     }
+    // Keybindings shared across all modes.
+    shared {
+        bind "Alt Shift z" {
+            // Enable the autolock plugin.
+            MessagePlugin "autolock" {payload "enable";};
+        }
+        //...
+    }
+    // Keybindings shared across all modes, except 'Locked'.
+    shared_except "locked" {
+        // Put keybindings here if they conflict with Vim or others.
+
+        bind "Alt z" {
+            // Disable the autolock plugin.
+            MessagePlugin "autolock" {payload "disable";};
+            // Lock Zellij.
+            SwitchToMode "Locked";
+        }
+
+        bind "Ctrl h" {
+            MoveFocusOrTab "Left";
+        }
+        bind "Ctrl l" {
+            MoveFocusOrTab "Right";
+        }
+        bind "Ctrl j" {
+            MoveFocus "Down";
+        }
+        bind "Ctrl k" {
+            MoveFocus "Up";
+        }
+
+        // bind "Ctrl d" { HalfPageScrollDown; }
+        // bind "Ctrl u" { HalfPageScrollUp; }
+
+        // bind "Ctrl f" { PageScrollDown; }
+        // bind "Ctrl b" { PageScrollUp; }
+
+        //...
+    }
+    //...
 }
