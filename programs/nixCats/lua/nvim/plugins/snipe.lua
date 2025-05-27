@@ -1,0 +1,3 @@
+require('snipe').setup({
+
+})

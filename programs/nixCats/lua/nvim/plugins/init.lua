@@ -71,6 +71,7 @@ require('lze').load {
   { import = "nvim.plugins.treesitter", },
   { import = "nvim.plugins.completion", },
   { import = "nvim.plugins.mini", },
+  { import = "nvim.plugins.zellij-nav" },
   {
     "markdown-preview.nvim",
     -- NOTE: for_cat is a custom handler that just sets enabled value for us,

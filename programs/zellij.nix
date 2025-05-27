@@ -16,4 +16,9 @@
       };     
     };
   };
+
+  xdg.configFile."zellij" = {
+    source = ../assets/zellij;
+      recursive = true;
+  };
 }
