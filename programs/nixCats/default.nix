@@ -1,4 +1,9 @@
-{ config, lib, inputs, ... }: let
+{
+  config,
+  lib,
+  inputs,
+  ...
+}: let
   utils = inputs.nixCats.utils;
 in {
   imports = [
@@ -13,19 +18,31 @@ in {
       # this will add the overlays from ./overlays and also,
       # add any plugins in inputs named "plugins-pluginName" to pkgs.neovimPlugins
       # It will not apply to overall system, just nixCats.
-      addOverlays = /* (import ./overlays inputs) ++ */ [
-        (utils.standardPluginOverlay inputs)
-      ];
+      addOverlays =
+        /*
+        (import ./overlays inputs) ++
+        */
+        [
+          (utils.standardPluginOverlay inputs)
+        ];
       # see the packageDefinitions below.
       # This says which of those to install.
-      packageNames = [ "myHomeModuleNvim" ];
+      packageNames = ["myHomeModuleNvim"];
 
       luaPath = ./.;
 
       # the .replace vs .merge options are for modules based on existing configurations,
       # they refer to how multiple categoryDefinitions get merged together by the module.
       # for useage of this section, refer to :h nixCats.flake.outputs.categories
-      categoryDefinitions.replace = ({ pkgs, settings, categories, extra, name, mkNvimPlugin, ... }@packageDef: {
+      categoryDefinitions.replace = {
+        pkgs,
+        settings,
+        categories,
+        extra,
+        name,
+        mkNvimPlugin,
+        ...
+      } @ packageDef: {
         # to define and use a new category, simply add a new list to a set here,
         # and later, you will include categoryname = true; in the set you
         # provide when you build the package using this builder function.
@@ -71,10 +88,12 @@ in {
             nvim-web-devicons
             lazy-nvim
             noice-nvim
+            snipe-nvim
+            smear-cursor-nvim
           ];
           debug = with pkgs.vimPlugins; [
             nvim-nio
-          ]; 
+          ];
           neonixdev = with pkgs.vimPlugins; [
             neodev-nvim
             neoconf-nvim
@@ -83,11 +102,11 @@ in {
             markdown-preview-nvim
             markview-nvim
           ];
-        # You can retreive information from the
-        # packageDefinitions of the package this was packaged with.
-        # :help nixCats.flake.outputs.categoryDefinitions.scheme
-        themer = with pkgs.vimPlugins;
-          (builtins.getAttr (categories.colorscheme or "onedark") {
+          # You can retreive information from the
+          # packageDefinitions of the package this was packaged with.
+          # :help nixCats.flake.outputs.categoryDefinitions.scheme
+          themer = with pkgs.vimPlugins; (
+            builtins.getAttr (categories.colorscheme or "onedark") {
               # Theme switcher without creating a new category
               "onedark" = onedark-nvim;
               "catppuccin" = catppuccin-nvim;
@@ -101,93 +120,93 @@ in {
         };
 
         # not loaded automatically at startup.
-# use with packadd and an autocommand in config to achieve lazy loading
+        # use with packadd and an autocommand in config to achieve lazy loading
         optionalPlugins = {
-        debug = with pkgs.vimPlugins; {
-          # it is possible to add default values.
-          # there is nothing special about the word "default"
-          # but we have turned this subcategory into a default value
-          # via the extraCats section at the bottom of categoryDefinitions.
-          default = [
-            nvim-dap
-            nvim-dap-ui
-            nvim-dap-virtual-text
+          debug = with pkgs.vimPlugins; {
+            # it is possible to add default values.
+            # there is nothing special about the word "default"
+            # but we have turned this subcategory into a default value
+            # via the extraCats section at the bottom of categoryDefinitions.
+            default = [
+              nvim-dap
+              nvim-dap-ui
+              nvim-dap-virtual-text
+            ];
+            go = [nvim-dap-go];
+          };
+          lint = with pkgs.vimPlugins; [
+            nvim-lint
           ];
-          go = [ nvim-dap-go ];
+          format = with pkgs.vimPlugins; [
+            conform-nvim
+          ];
+          markdown = with pkgs.vimPlugins; [
+            markdown-preview-nvim
+          ];
+          neonixdev = with pkgs.vimPlugins; [
+            lazydev-nvim
+          ];
+          general = {
+            cmp = with pkgs.vimPlugins; [
+              # cmp stuff
+              nvim-cmp
+              luasnip
+              friendly-snippets
+              cmp_luasnip
+              cmp-buffer
+              cmp-path
+              cmp-nvim-lua
+              cmp-nvim-lsp
+              cmp-cmdline
+              cmp-nvim-lsp-signature-help
+              cmp-cmdline-history
+              lspkind-nvim
+            ];
+            treesitter = with pkgs.vimPlugins; [
+              nvim-treesitter-textobjects
+              nvim-treesitter.withAllGrammars
+              # This is for if you only want some of the grammars
+              # (nvim-treesitter.withPlugins (
+              #   plugins: with plugins; [
+              #     nix
+              #     lua
+              #   ]
+              # ))
+            ];
+            telescope = with pkgs.vimPlugins; [
+              telescope-fzf-native-nvim
+              telescope-ui-select-nvim
+              telescope-nvim
+            ];
+            always = with pkgs.vimPlugins; [
+              nvim-lspconfig
+              lualine-nvim
+              gitsigns-nvim
+              vim-sleuth
+              vim-fugitive
+              vim-rhubarb
+              nvim-surround
+            ];
+            extra = with pkgs.vimPlugins; [
+              fidget-nvim
+              # lualine-lsp-progress
+              which-key-nvim
+              comment-nvim
+              undotree
+              indent-blankline-nvim
+              vim-startuptime
+              zellij-nav-nvim
+              # If it was included in your flake inputs as plugins-hlargs,
+              # this would be how to add that plugin in your config.
+              # pkgs.neovimPlugins.hlargs
+            ];
+          };
         };
-        lint = with pkgs.vimPlugins; [
-          nvim-lint
-        ];
-        format = with pkgs.vimPlugins; [
-          conform-nvim
-        ];
-        markdown = with pkgs.vimPlugins; [
-          markdown-preview-nvim
-        ];
-        neonixdev = with pkgs.vimPlugins; [
-          lazydev-nvim
-        ];
-        general = {
-          cmp = with pkgs.vimPlugins; [
-            # cmp stuff
-            nvim-cmp
-            luasnip
-            friendly-snippets
-            cmp_luasnip
-            cmp-buffer
-            cmp-path
-            cmp-nvim-lua
-            cmp-nvim-lsp
-            cmp-cmdline
-            cmp-nvim-lsp-signature-help
-            cmp-cmdline-history
-            lspkind-nvim
-          ];
-          treesitter = with pkgs.vimPlugins; [
-            nvim-treesitter-textobjects
-            nvim-treesitter.withAllGrammars
-            # This is for if you only want some of the grammars
-            # (nvim-treesitter.withPlugins (
-            #   plugins: with plugins; [
-            #     nix
-            #     lua
-            #   ]
-            # ))
-          ];
-          telescope = with pkgs.vimPlugins; [
-            telescope-fzf-native-nvim
-            telescope-ui-select-nvim
-            telescope-nvim
-          ];
-          always = with pkgs.vimPlugins; [
-            nvim-lspconfig
-            lualine-nvim
-            gitsigns-nvim
-            vim-sleuth
-            vim-fugitive
-            vim-rhubarb
-            nvim-surround
-          ];
-          extra = with pkgs.vimPlugins; [
-            fidget-nvim
-            # lualine-lsp-progress
-            which-key-nvim
-            comment-nvim
-            undotree
-            indent-blankline-nvim
-            vim-startuptime
-            zellij-nav-nvim
-            # If it was included in your flake inputs as plugins-hlargs,
-            # this would be how to add that plugin in your config.
-            # pkgs.neovimPlugins.hlargs
-          ];
-        };
-      };
 
         # shared libraries to be added to LD_LIBRARY_PATH
         # variable available to nvim runtime
         sharedLibraries = {
-          general = with pkgs; [ ];
+          general = with pkgs; [];
         };
 
         # environmentVariables:
@@ -212,13 +231,13 @@ in {
           #   '' --set CATTESTVAR2 "It worked again!"''
           # ];
         };
-      });
+      };
 
       # see :help nixCats.flake.outputs.packageDefinitions
       packageDefinitions.replace = {
         # These are the names of your packages
         # you can include as many as you wish.
-        myHomeModuleNvim = {pkgs , ... }: {
+        myHomeModuleNvim = {pkgs, ...}: {
           # they contain a settings set defined above
           # see :help nixCats.flake.outputs.settings
           settings = {
@@ -227,7 +246,7 @@ in {
             unwrappedCfgPath = "${config.home.homeDirectory}/nixos-config/programs/nixCats/";
             # IMPORTANT:
             # your alias may not conflict with your other packages.
-            aliases = [ "nvim" "vim" ];
+            aliases = ["nvim" "vim"];
             # neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.system}.neovim;
           };
           # and a set of categories that you want

@@ -1,28 +1,40 @@
-require('lze').load {
+require("lze").load({
   {
     "conform.nvim",
-    for_cat = 'format',
-    -- cmd = { "" },
-    -- event = "",
-    -- ft = "",
+    for_cat = "format",
     keys = {
       { "<leader>FF", desc = "[F]ormat [F]ile" },
     },
     -- colorscheme = "",
-    after = function (plugin)
+    after = function(plugin)
       local conform = require("conform")
 
       conform.setup({
         formatters_by_ft = {
           -- NOTE: download some formatters in lspsAndRuntimeDeps
           -- and configure them here
-          -- lua = { "stylua" },
-          -- go = { "gofmt", "golint" },
-          -- templ = { "templ" },
-          -- Conform will run multiple formatters sequentially
-          -- python = { "isort", "black" },
-          -- Use a sub-list to run only the first available formatter
-          -- javascript = { { "prettierd", "prettier" } },
+          lua = { "stylua" },
+          nix = { "alejandra" },
+          javascript = { { "prettierd", "prettier", stop_after_first = true } },
+          typescript = { { "prettierd", "prettier", stop_after_first = true } },
+        },
+        default_format_opts = {
+          lsp_format = "fallback",
+        },
+        format_on_save = { timeout_ms = 500 },
+        formatters = {
+          stylua = {
+            args = {
+              "--search-parent-directories",
+              "--indent-type",
+              "Spaces",
+              "--indent-width",
+              "2",
+              "--stdin-filepath",
+              "$FILENAME",
+              "-",
+            },
+          },
         },
       })
 
@@ -35,4 +47,4 @@ require('lze').load {
       end, { desc = "[F]ormat [F]ile" })
     end,
   },
-}
+})

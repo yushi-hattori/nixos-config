@@ -57,6 +57,9 @@ return {
         windows = {
           preview = true,
           width_preview = 100,
+        },
+        mappings = {
+          go_in_plus = '<CR>'
         }
       })
     end,
