@@ -20,6 +20,7 @@
       "cd" = "z";
       ".." = "cd ..";
       "update" = "sudo nixos-rebuild switch --flake ~/nixos-config/flake.nix";
+      "ls" = "eza";
     };
     
   };

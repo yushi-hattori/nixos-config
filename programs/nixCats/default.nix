@@ -262,7 +262,7 @@ in {
             lint = true;
             format = true;
             themer = true;
-            colorscheme = "nightfox";
+            colorscheme = "carbonfox";
           };
           # anything else to pass and grab in lua with `nixCats.extra`
           extra = {
