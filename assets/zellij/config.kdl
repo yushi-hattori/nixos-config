@@ -216,7 +216,7 @@ keybinds clear-defaults=true {
         }
     }
     scroll {
-        bind "Ctrl s" {
+        bind "Ctrl e" {
             SwitchToMode "Normal"
         }
         bind "e" {
@@ -253,7 +253,7 @@ keybinds clear-defaults=true {
         // bind "Alt c" { Copy; }
     }
     search {
-        bind "Ctrl s" {
+        bind "Ctrl e" {
             SwitchToMode "Normal"
         }
         bind "Ctrl c" {
@@ -324,7 +324,7 @@ keybinds clear-defaults=true {
         bind "Alt s" {
             SwitchToMode "Normal"
         }
-        bind "Ctrl s" {
+        bind "Ctrl e" {
             SwitchToMode "Scroll"
         }
         bind "d" {
@@ -512,7 +512,7 @@ keybinds clear-defaults=true {
         }
     }
     shared_except "scroll" "locked" {
-        bind "Ctrl s" {
+        bind "Ctrl e" {
             SwitchToMode "Scroll"
         }
     }
