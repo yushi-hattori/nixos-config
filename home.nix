@@ -1,4 +1,10 @@
-{ config, pkgs, inputs, lib, ... }: let
+{
+  config,
+  pkgs,
+  inputs,
+  lib,
+  ...
+}: let
   utils = inputs.nixCats.utils;
 in {
   imports = [
@@ -22,9 +28,12 @@ in {
       fzf # a command-line fuzzy finder
       zoxide
       xclip
+      zsh-vi-mode
+      thefuck
+      aider-chat
     ];
   };
 
-# Let home Manager install and manage itself.
+  # Let home Manager install and manage itself.
   programs.home-manager.enable = true;
 }

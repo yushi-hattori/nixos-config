@@ -1,35 +1,3 @@
-{
-  config,
-  lib,
-  inputs,
-  ...
-}: let
-  utils = inputs.nixCats.utils;
-in {
-  imports = [
-    inputs.nixCats.homeModule
-  ];
-  config = {
-    # this value, nixCats is the defaultPackageName you pass to mkNixosModules
-    # it will be the namespace for your options.
-    nixCats = {
-      enable = true;
-      # nixpkgs_version = inputs.nixpkgs;
-      # this will add the overlays from ./overlays and also,
-      # add any plugins in inputs named "plugins-pluginName" to pkgs.neovimPlugins
-      # It will not apply to overall system, just nixCats.
-      addOverlays =
-        /*
-        (import ./overlays inputs) ++
-        */
-        [
-          (utils.standardPluginOverlay inputs)
-        ];
-      # see the packageDefinitions below.
-      # This says which of those to install.
-      packageNames = ["myHomeModuleNvim"];
-
-      luaPath = ./.;
 
       # the .replace vs .merge options are for modules based on existing configurations,
       # they refer to how multiple categoryDefinitions get merged together by the module.
@@ -85,12 +53,12 @@ in {
             mini-nvim
             onedark-nvim
             vim-sleuth
-            oil-nvim
             nvim-web-devicons
             lazy-nvim
             noice-nvim
             snipe-nvim
             smear-cursor-nvim
+            avante-nvim
           ];
           debug = with pkgs.vimPlugins; [
             nvim-nio
