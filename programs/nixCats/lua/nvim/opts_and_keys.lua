@@ -170,3 +170,8 @@ vim.keymap.set(
   '"_dP',
   { noremap = true, silent = true, desc = "Paste over selection without erasing unnamed register" }
 )
+
+vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Move to left buffer" })
+vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Move to below buffer" })
+vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Move to above buffer" })
+vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Move to right buffer" })
