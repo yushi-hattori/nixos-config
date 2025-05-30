@@ -17,6 +17,7 @@ require("lze").load({
           nix = { "alejandra" },
           javascript = { { "prettierd", "prettier", stop_after_first = true } },
           typescript = { { "prettierd", "prettier", stop_after_first = true } },
+          kdl = { "kdlfmt" },
         },
         default_format_opts = {
           lsp_format = "fallback",

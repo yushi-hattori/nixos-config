@@ -9,5 +9,6 @@
     ./zellij.nix
     ./zsh.nix
     ./zoxide.nix
+    ./spotify-player.nix
   ];
 }

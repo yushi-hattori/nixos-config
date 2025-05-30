@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
   programs.zellij = {
     enable = true;
     enableBashIntegration = true;
@@ -13,12 +12,12 @@
         pane_frames = {
           rounded_corners = true;
         };
-      };     
+      };
     };
   };
 
-  # xdg.configFile."zellij" = {
-  #   source = ../assets/zellij;
-  #     recursive = true;
-  # };
+  xdg.configFile."zellij" = {
+    source = ../assets/zellij;
+    recursive = true;
+  };
 }

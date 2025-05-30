@@ -58,6 +58,7 @@ in {
             universal-ctags
             ripgrep
             fd
+            kdlfmt
           ];
           lua = with pkgs; [
             lua-language-server
