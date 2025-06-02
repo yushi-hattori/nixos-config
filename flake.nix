@@ -5,7 +5,7 @@
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.11";
+      url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixCats = {
@@ -39,7 +39,7 @@
         ./configuration.nix
         nixos-wsl.nixosModules.default
         {
-          system.stateVersion = "24.11";
+          system.stateVersion = "25.05";
           wsl.enable = true;
           wsl.defaultUser = "yhattori";
         }
