@@ -75,6 +75,9 @@ in {
 
         # This is for plugins that will load at startup without using packadd:
         startupPlugins = {
+          other = with pkgs.neovimPlugins; [
+            debugmaster
+          ];
           general = with pkgs.vimPlugins; [
             lze
             lzextras
@@ -132,6 +135,7 @@ in {
               nvim-dap
               nvim-dap-ui
               nvim-dap-virtual-text
+              one-small-step-for-vimkind
             ];
             go = [nvim-dap-go];
           };
@@ -187,6 +191,7 @@ in {
               vim-fugitive
               vim-rhubarb
               nvim-surround
+              hardtime-nvim
             ];
             extra = with pkgs.vimPlugins; [
               fidget-nvim
@@ -264,6 +269,8 @@ in {
             format = true;
             themer = true;
             colorscheme = "carbonfox";
+            other = true;
+            default = true;
           };
           # anything else to pass and grab in lua with `nixCats.extra`
           extra = {
