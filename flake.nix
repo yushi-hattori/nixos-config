@@ -12,41 +12,51 @@
       url = "github:BirdeeHub/nixCats-nvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    plugins-debugmaster = {
+      url = "github:miroshQa/debugmaster.nvim";
+      flake = false;
+    };
   };
 
-  outputs = { self, nixpkgs, nixos-wsl, home-manager, nixCats, ... }@inputs: 
-  let
+  outputs = {
+    self,
+    nixpkgs,
+    nixos-wsl,
+    home-manager,
+    nixCats,
+    ...
+  } @ inputs: let
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
-  in
-  {
+  in {
     # nixpkgs.overlays = inputs.<repo-name>.overlays.default;
     # Builds the nixos host -> `Use sudo nixos-rebuild switch --flake .`
     nixosConfigurations."nixos" = nixpkgs.lib.nixosSystem {
       inherit system;
-      specialArgs = { inherit inputs; };
+      specialArgs = {inherit inputs;};
       modules = [
         ./configuration.nix
         nixos-wsl.nixosModules.default
-	{
-	  system.stateVersion = "24.11";
-	  wsl.enable = true;
-	  wsl.defaultUser = "yhattori";
-	}
+        {
+          system.stateVersion = "24.11";
+          wsl.enable = true;
+          wsl.defaultUser = "yhattori";
+        }
 
-	home-manager.nixosModules.home-manager 
-	{
-	  home-manager = {
-	    extraSpecialArgs = { inherit inputs; };
-	    useGlobalPkgs = true;
-	    useUserPackages = true;
-	    users.yhattori = { 
-	      imports = [
-	        ./home.nix
-	      ];
-	    };
-	  };
-	}
+        home-manager.nixosModules.home-manager
+        {
+          home-manager = {
+            extraSpecialArgs = {inherit inputs;};
+            useGlobalPkgs = true;
+            useUserPackages = true;
+            users.yhattori = {
+              imports = [
+                ./home.nix
+              ];
+            };
+          };
+        }
       ];
     };
   };

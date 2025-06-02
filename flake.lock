@@ -104,12 +104,29 @@
         "type": "github"
       }
     },
+    "plugins-debugmaster": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1748283536,
+        "narHash": "sha256-qsAlTBOqTXb9YpqPbKEfZkVfejZHWJZQ/CxXSTNOIa0=",
+        "owner": "miroshQa",
+        "repo": "debugmaster.nvim",
+        "rev": "aeae4c324be259856a3e9e436db89875421b78ca",
+        "type": "github"
+      },
+      "original": {
+        "owner": "miroshQa",
+        "repo": "debugmaster.nvim",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "home-manager": "home-manager",
         "nixCats": "nixCats",
         "nixos-wsl": "nixos-wsl",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_2",
+        "plugins-debugmaster": "plugins-debugmaster"
       }
     }
   },

@@ -31,6 +31,7 @@ in {
       zsh-vi-mode
       thefuck
       aider-chat
+      nix-prefetch-github
     ];
   };
 
