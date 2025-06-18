@@ -64,6 +64,14 @@ in {
             lua-language-server
             stylua
           ];
+          markdown = with pkgs; [
+            cbfmt
+            mdformat
+          ];
+          python = with pkgs; [
+            ruff
+            ruff-lsp
+          ];
           nix = with pkgs; [
             nixd
             alejandra
@@ -77,6 +85,7 @@ in {
         startupPlugins = {
           other = with pkgs.neovimPlugins; [
             debugmaster
+            nui
           ];
           general = with pkgs.vimPlugins; [
             lze
@@ -202,6 +211,7 @@ in {
               indent-blankline-nvim
               vim-startuptime
               zellij-nav-nvim
+              leetcode-nvim
               # If it was included in your flake inputs as plugins-hlargs,
               # this would be how to add that plugin in your config.
               # pkgs.neovimPlugins.hlargs
@@ -260,11 +270,13 @@ in {
           # and a set of categories that you want
           categories = {
             general = true;
+            telescope = true;
             lua = true;
             nix = true;
             neonixdev = true;
             debug = true;
             markdown = true;
+            python = true;
             lint = true;
             format = true;
             themer = true;

@@ -13,6 +13,7 @@
       zoxide
       git
       ripgrep # recursively search directories for a regex pattern
+      yq-go
       jq # A lightweight and flexible command-line JSON processor
       eza # a modern replacement for 'ls'
       fzf # a command-line fuzzy finder

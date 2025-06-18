@@ -18,6 +18,8 @@ require("lze").load({
           javascript = { { "prettierd", "prettier", stop_after_first = true } },
           typescript = { { "prettierd", "prettier", stop_after_first = true } },
           kdl = { "kdlfmt" },
+          markdown = { "mdformat" },
+          python = { "ruff_format", "ruff_fix" },
         },
         default_format_opts = {
           lsp_format = "fallback",

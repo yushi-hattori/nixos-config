@@ -19,6 +19,8 @@ end
 require("nvim.plugins.snacks")
 require("nvim.plugins.noice")
 require("lze").load({
+  { import = "nvim.plugins.leetcode" },
+  { import = "nvim.plugins.telescope" },
   { import = "nvim.plugins.treesitter" },
   { import = "nvim.plugins.completion" },
   { import = "nvim.plugins.mini" },

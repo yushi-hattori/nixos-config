@@ -17,6 +17,11 @@
       url = "github:miroshQa/debugmaster.nvim";
       flake = false;
     };
+
+    plugins-nui = {
+      url = "github:MunifTanjim/nui.nvim";
+      flake = false;
+    };
   };
 
   outputs = {

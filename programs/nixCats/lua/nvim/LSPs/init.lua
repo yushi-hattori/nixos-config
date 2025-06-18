@@ -1,9 +1,9 @@
-local catUtils = require('nixCatsUtils')
-if (catUtils.isNixCats and nixCats('lspDebugMode')) then
+local catUtils = require("nixCatsUtils")
+if catUtils.isNixCats and nixCats("lspDebugMode") then
   vim.lsp.set_log_level("debug")
 end
 -- this is how to use the lsp handler.
-require('lze').load {
+require("lze").load({
   {
     "nvim-lspconfig",
     for_cat = "general.core",
@@ -14,9 +14,9 @@ require('lze').load {
     -- when their filetype trigger loads them
     lsp = function(plugin)
       -- in this case, just extend some default arguments with the ones provided in the lsp table
-      require('lspconfig')[plugin.name].setup(vim.tbl_extend("force",{
-        capabilities = require('nvim.LSPs.caps-on_attach').get_capabilities(plugin.name),
-        on_attach = require('nvim.LSPs.caps-on_attach').on_attach,
+      require("lspconfig")[plugin.name].setup(vim.tbl_extend("force", {
+        capabilities = require("nvim.LSPs.caps-on_attach").get_capabilities(plugin.name),
+        on_attach = require("nvim.LSPs.caps-on_attach").on_attach,
       }, plugin.lsp or {}))
     end,
   },
@@ -28,9 +28,9 @@ require('lze').load {
     load = function(name)
       vim.cmd.packadd(name)
       vim.cmd.packadd("mason-lspconfig.nvim")
-      require('mason').setup()
+      require("mason").setup()
       -- auto install will make it install servers when lspconfig is called on them.
-      require('mason-lspconfig').setup { automatic_installation = true, }
+      require("mason-lspconfig").setup({ automatic_installation = true })
     end,
   },
   {
@@ -40,9 +40,9 @@ require('lze').load {
     cmd = { "LazyDev" },
     ft = "lua",
     after = function(_)
-      require('lazydev').setup({
+      require("lazydev").setup({
         library = {
-          { words = { "nixCats" }, path = (nixCats.nixCatsPath or "") .. '/lua' },
+          { words = { "nixCats" }, path = (nixCats.nixCatsPath or "") .. "/lua" },
         },
       })
     end,
@@ -50,24 +50,24 @@ require('lze').load {
   {
     -- name of the lsp
     "lua_ls",
-    enabled = nixCats('lua') or nixCats('neonixdev') or false,
+    enabled = nixCats("lua") or nixCats("neonixdev") or false,
     -- provide a table containing filetypes,
     -- and then whatever your functions defined in the function type specs expect.
     -- in our case, it just expects the normal lspconfig setup options,
     -- but with a default on_attach and capabilities
     lsp = {
       -- if you provide the filetypes it doesn't ask lspconfig for the filetypes
-      filetypes = { 'lua' },
+      filetypes = { "lua" },
       settings = {
         Lua = {
-          runtime = { version = 'LuaJIT' },
+          runtime = { version = "LuaJIT" },
           formatters = {
             ignoreComments = true,
           },
           signatureHelp = { enabled = true },
           diagnostics = {
-            globals = { "nixCats", "vim", },
-            disable = { 'missing-fields' },
+            globals = { "nixCats", "vim" },
+            disable = { "missing-fields" },
           },
           telemetry = { enabled = false },
         },
@@ -90,7 +90,15 @@ require('lze').load {
     },
   },
   {
-    "nil_ls",
+    "ruff_lsp",
+    -- mason doesn't have nixd
+    enabled = not catUtils.isNixCats,
+    lsp = {
+      filetypes = { "python" },
+    },
+  },
+  {
+    "nil",
     -- mason doesn't have nixd
     enabled = not catUtils.isNixCats,
     lsp = {
@@ -99,9 +107,9 @@ require('lze').load {
   },
   {
     "nixd",
-    enabled = catUtils.isNixCats and (nixCats('nix') or nixCats('neonixdev')) or false,
+    enabled = catUtils.isNixCats and (nixCats("nix") or nixCats("neonixdev")) or false,
     lsp = {
-      filetypes = { 'nix' },
+      filetypes = { "nix" },
       settings = {
         nixd = {
           -- nixd requires some configuration.
@@ -121,26 +129,26 @@ require('lze').load {
             -- of where your config actually was.
             nixos = {
               -- nixdExtras.nixos_options = ''(builtins.getFlake "path:${builtins.toString inputs.self.outPath}").nixosConfigurations.configname.options''
-              expr = nixCats.extra("nixdExtras.nixos_options") or [[{}]]
+              expr = nixCats.extra("nixdExtras.nixos_options") or [[{}]],
             },
             -- If you have your config as a separate flake, inputs.self would be referring to the wrong flake.
             -- You can override the correct one into your package definition on import in your main configuration,
             -- or just put an absolute path to where it usually is and accept the impurity.
             ["home-manager"] = {
               -- nixdExtras.home_manager_options = ''(builtins.getFlake "path:${builtins.toString inputs.self.outPath}").homeConfigurations.configname.options''
-              expr = nixCats.extra("nixdExtras.home_manager_options") or [[{}]]
-            }
+              expr = nixCats.extra("nixdExtras.home_manager_options") or [[{}]],
+            },
           },
           formatting = {
-            command = { "nixfmt" }
+            command = { "nixfmt" },
           },
           diagnostic = {
             suppress = {
-              "sema-escaping-with"
-            }
-          }
-        }
+              "sema-escaping-with",
+            },
+          },
+        },
       },
     },
   },
-}
+})
