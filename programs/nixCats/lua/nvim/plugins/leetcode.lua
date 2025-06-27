@@ -11,5 +11,21 @@ return {
         },
       },
     })
+
+    -- Set keybindings for Leet run and submit
+    vim.keymap.set("n", "<leader>lo", ":Leet <CR>", { noremap = true, silent = true, desc = "[L]eetcode [O]pen" })
+    vim.keymap.set("n", "<leader>lr", ":Leet run<CR>", { noremap = true, silent = true, desc = "[L]eetcode [R]un" })
+    vim.keymap.set(
+      "n",
+      "<leader>ls",
+      ":Leet submit<CR>",
+      { noremap = true, silent = true, desc = "[L]eetcode [S]ubmit" }
+    )
+    vim.keymap.set(
+      "n",
+      "<leader>lc",
+      ":Leet console<CR>",
+      { noremap = true, silent = true, desc = "[L]eetcode [C]onsole" }
+    )
   end,
 }

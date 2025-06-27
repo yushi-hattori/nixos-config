@@ -19,7 +19,13 @@ require("lze").load({
           typescript = { { "prettierd", "prettier", stop_after_first = true } },
           kdl = { "kdlfmt" },
           markdown = { "mdformat" },
-          python = { "ruff_format", "ruff_fix" },
+          python = function(bufnr)
+            if require("conform").get_formatter_info("ruff_format", bufnr).available then
+              return { "ruff_format" }
+            else
+              return { "isort", "black" }
+            end
+          end,
         },
         default_format_opts = {
           lsp_format = "fallback",

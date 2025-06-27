@@ -69,6 +69,8 @@ in {
             mdformat
           ];
           python = with pkgs; [
+            black
+            isort
             ruff
             ruff-lsp
           ];
