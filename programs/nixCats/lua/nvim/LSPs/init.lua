@@ -90,13 +90,19 @@ require("lze").load({
     },
   },
   {
-    "ruff_lsp",
-    -- mason doesn't have nixd
-    enabled = not catUtils.isNixCats,
+    "ruff",
     lsp = {
       filetypes = { "python" },
     },
   },
+  -- {
+  --   "ruff_lsp",
+  --   -- mason doesn't have nixd
+  --   enabled = not catUtils.isNixCats,
+  --   lsp = {
+  --     filetypes = { "python" },
+  --   },
+  -- },
   {
     "nil",
     -- mason doesn't have nixd

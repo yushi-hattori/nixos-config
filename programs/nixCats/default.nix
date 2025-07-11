@@ -72,7 +72,6 @@ in {
             black
             isort
             ruff
-            ruff-lsp
           ];
           nix = with pkgs; [
             nixd
