@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   imports = [
-    ./programs/default.nix
+    ../../programs/default.nix
   ];
 
   home = {

@@ -52,7 +52,7 @@
       inherit system;
       specialArgs = {inherit inputs;};
       modules = [
-        ./configuration.nix
+        ./modules/hosts/default.nix
         nixos-wsl.nixosModules.default
         {
           system.stateVersion = "25.05";
@@ -68,7 +68,7 @@
             useUserPackages = true;
             users.yhattori = {
               imports = [
-                ./home.nix
+                ./modules/home/default.nix
               ];
             };
           };
