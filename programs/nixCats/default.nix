@@ -87,6 +87,7 @@ in {
           other = with pkgs.neovimPlugins; [
             debugmaster
             nui
+            opencode
           ];
           general = with pkgs.vimPlugins; [
             lze

@@ -169,6 +169,22 @@
         "type": "github"
       }
     },
+    "plugins-opencode": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1753300979,
+        "narHash": "sha256-tUk+iOFFUu77rm7YZwsCrJypjO6d4SF8YfihC9IM5lI=",
+        "owner": "NickvanDyke",
+        "repo": "opencode.nvim",
+        "rev": "107fbc844b1e95c19bd34095014f0a8af99fd21c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NickvanDyke",
+        "repo": "opencode.nvim",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "home-manager": "home-manager",
@@ -178,7 +194,8 @@
         "nixpkgs-unstable": "nixpkgs-unstable",
         "opencode": "opencode",
         "plugins-debugmaster": "plugins-debugmaster",
-        "plugins-nui": "plugins-nui"
+        "plugins-nui": "plugins-nui",
+        "plugins-opencode": "plugins-opencode"
       }
     }
   },

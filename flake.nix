@@ -30,6 +30,11 @@
       url = "github:MunifTanjim/nui.nvim";
       flake = false;
     };
+
+    plugins-opencode = {
+      url = "github:NickvanDyke/opencode.nvim";
+      flake = false;
+    };
   };
 
   outputs = {
