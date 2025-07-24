@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   imports = [
     ./git.nix
     ./bash.nix
@@ -10,5 +12,6 @@
     ./zsh.nix
     ./zoxide.nix
     ./spotify-player.nix
+    ./opencode.nix
   ];
 }
