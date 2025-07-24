@@ -15,9 +15,9 @@
       "cd" = "z";
       ".." = "cd ..";
       "gc" = "sudo nix-collect-garbage -d";
-      "update" = "sudo nixos-rebuild switch --flake ~/nixos-config/";
+      "update" = "sudo nixos-rebuild switch --flake ~/nixos-config/flake.nix";
       "ls" = "eza";
-      "grep" = "grep --color=auto";
+      grep = "grep --color=auto";
     };
     initExtra = ''
       source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh

@@ -27,5 +27,7 @@ return {
       ":Leet console<CR>",
       { noremap = true, silent = true, desc = "[L]eetcode [C]onsole" }
     )
+    vim.keymap.set("n", "<leader>li", ":Leet info<CR>", { noremap = true, silent = true, desc = "[L]eetcode [I]nfo" })
+    vim.keymap.set("n", "<leader>lt", ":Leet tabs<CR>", { noremap = true, silent = true, desc = "[L]eetcode [T]abs" })
   end,
 }
