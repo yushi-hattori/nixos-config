@@ -49,67 +49,74 @@
   } @ inputs: let
     system = "x86_64-linux";
     lib = nixpkgs.lib;
-    # pkgs = nixpkgs.legacyPackages.${system};
+
+    # Shared home-manager config
+    homeManagerConfig = {
+      home-manager = {
+        extraSpecialArgs = { inherit inputs; };
+        useGlobalPkgs = true;
+        useUserPackages = true;
+        users.yhattori = {
+          imports = [ ./modules/home/default.nix ];
+        };
+      };
+    };
+
+    # Shared overlay for opencode
+    opencodeOverlay = final: prev: {
+      opencode = nixpkgs-unstable.legacyPackages.${prev.system}.opencode.overrideAttrs (old: {
+        version = "0.3.58";
+        src = opencode;
+        node_modules = old.node_modules.overrideAttrs (_: {
+          outputHash = "sha256-ZMz7vfndYrpjUvhX8L9qv/lXcWKqXZwvfahGAE5EKYo=";
+        });
+        tui = old.tui.overrideAttrs (_: {
+          vendorHash = "sha256-8OIPFa+bl1If55YZtacyOZOqMLslbMyO9Hx0HOzmrA0=";
+        });
+      });
+    };
   in {
-    # nixpkgs.overlays = inputs.<repo-name>.overlays.default;
-    # Builds the nixos host -> `Use sudo nixos-rebuild switch --flake .`
-    nixosConfigurations."nixos" = lib.nixosSystem {
-      inherit system;
-      specialArgs = {inherit inputs;};
-      modules = [
-        ./modules/hosts/default.nix
-        nixos-wsl.nixosModules.default
-        {
-          system.stateVersion = "25.05";
-          wsl.enable = true;
-          wsl.defaultUser = "yhattori";
-        }
+    nixosConfigurations = {
+      # Framework 13 host
+      framework13 = lib.nixosSystem {
+        inherit system;
+        specialArgs = { inherit inputs; };
+        modules = [
+          ./modules/hosts/default.nix
+	  ./modules/hosts/framework13/configuration.nix
+	  ./modules/hosts/framework13/hardware-configuration.nix
 
-        home-manager.nixosModules.home-manager
-        {
-          home-manager = {
-            extraSpecialArgs = {inherit inputs;};
-            useGlobalPkgs = true;
-            useUserPackages = true;
-            users.yhattori = {
-              imports = [
-                ./modules/home/default.nix
-              ];
-            };
-          };
-        }
-
-        (
+          home-manager.nixosModules.home-manager
+          homeManagerConfig
           {
-            config,
-            pkgs,
-            lib,
-            ...
-          }: {
-            imports = [
-              (
-                {...}: {
-                  nixpkgs.overlays = [
-                    (final: prev: {
-                      opencode = nixpkgs-unstable.legacyPackages.${prev.system}.opencode.overrideAttrs (old: {
-                        version = "0.3.58";
-                        src = opencode;
-                        node_modules = old.node_modules.overrideAttrs (nmOld: {
-                          outputHash = "sha256-ZMz7vfndYrpjUvhX8L9qv/lXcWKqXZwvfahGAE5EKYo=";
-                        });
-                        tui = old.tui.overrideAttrs (tuiOld: {
-                          vendorHash = "sha256-8OIPFa+bl1If55YZtacyOZOqMLslbMyO9Hx0HOzmrA0=";
-                        });
-                      });
-                    })
-                  ];
-                }
-              )
-            ];
-            environment.systemPackages = [pkgs.opencode];
+            nixpkgs.overlays = [ opencodeOverlay ];
+            environment.systemPackages = [ nixpkgs.opencode ];
+            system.stateVersion = "25.05";
           }
-        )
-      ];
+        ];
+      };
+
+      # WSL host
+      wsl = lib.nixosSystem {
+        inherit system;
+        specialArgs = { inherit inputs; };
+        modules = [
+          ./modules/hosts/default.nix
+          nixos-wsl.nixosModules.default
+          {
+            wsl.enable = true;
+            wsl.defaultUser = "yhattori";
+            system.stateVersion = "25.05";
+          }
+          home-manager.nixosModules.home-manager
+          homeManagerConfig
+          {
+            nixpkgs.overlays = [ opencodeOverlay ];
+            environment.systemPackages = [ nixpkgs.opencode ];
+          }
+        ];
+      };
     };
   };
 }
+
