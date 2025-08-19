@@ -9,7 +9,8 @@
       vivaldi
       udiskie
       (discord.override {
-        withVencord = true;
+        withOpenASAR = true;
+        withVencord = false;
       })
       spotify
     ];
