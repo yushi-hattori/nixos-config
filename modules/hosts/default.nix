@@ -12,7 +12,7 @@
   nix.settings.experimental-features = ["nix-command" "flakes"];
   environment.systemPackages = with pkgs; [
     git
-    # neovim
+    neovim
     wget
   ];
   # Set the default editor to nvim

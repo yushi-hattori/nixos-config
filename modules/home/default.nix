@@ -23,6 +23,7 @@
       thefuck
       aider-chat
       nix-prefetch-github
+      openssh
     ];
   };
 

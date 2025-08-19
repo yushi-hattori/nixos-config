@@ -15,7 +15,8 @@
       "cd" = "z";
       ".." = "cd ..";
       "gc" = "sudo nix-collect-garbage -d";
-      "update" = "sudo nixos-rebuild switch --flake ~/nixos-config/";
+      "update-wsl" = "sudo nixos-rebuild switch --flake ~/nixos-config/#wsl";
+      "update-fw" = "sudo nixos-rebuild switch --flake ~/nixos-config/#framework13";
       "ls" = "eza";
       "grep" = "grep --color=auto";
     };

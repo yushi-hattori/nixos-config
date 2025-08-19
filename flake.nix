@@ -107,8 +107,8 @@
           ./modules/hosts/framework13/hardware-configuration.nix
           ./modules/hosts/default.nix
 
-          # homeManagerConfig
           home-manager.nixosModules.home-manager
+          # homeManagerConfig
           {
             home-manager = {
               extraSpecialArgs = {inherit inputs;};
@@ -127,25 +127,24 @@
         ];
       };
 
-      # wsl = lib.nixosSystem {
-      #   inherit system;
-      #   specialArgs = { inherit inputs; };
-      #   modules = [
-      #     ./modules/hosts/default.nix
-      #     # ./modules/hosts/wsl.nix
-      #     nixos-wsl.nixosModules.default
-      #     {
-      #       wsl.enable = true;
-      #       wsl.defaultUser = "yhattori";
-      #     }
-      #     home-manager.nixosModules.home-manager
-      #     homeManagerConfig
-      #     {
-      #       nixpkgs.overlays = [ opencodeOverlay ];
-      #       environment.systemPackages = [ nixpkgs.opencode ];
-      #     }
-      #   ];
-      # };
+      wsl = lib.nixosSystem {
+        inherit system;
+        specialArgs = {inherit inputs;};
+        modules = [
+          ./modules/hosts/default.nix
+          # ./modules/hosts/wsl.nix
+          nixos-wsl.nixosModules.default
+          {
+            wsl.enable = true;
+            wsl.defaultUser = "yhattori";
+          }
+
+          home-manager.nixosModules.home-manager
+          homeManagerConfig
+
+          opencodeOverlay
+        ];
+      };
     };
   };
 }
