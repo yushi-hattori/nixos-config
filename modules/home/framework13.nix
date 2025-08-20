@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   imports = [
-    # ../../programs/default.nix
     ./default.nix
+    ../../programs/easyeffects.nix
   ];
 
   home = {
@@ -14,7 +14,6 @@
         withVencord = false;
       })
       spotify
-      easyeffects
     ];
 
     sessionVariables = {

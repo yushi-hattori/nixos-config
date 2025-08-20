@@ -63,6 +63,7 @@
         extraSpecialArgs = {inherit inputs;};
         useGlobalPkgs = true;
         useUserPackages = true;
+        backupFileExtension = "backup";
         users.yhattori = {
           imports = [./modules/home/default.nix];
         };
@@ -110,18 +111,11 @@
           ./modules/hosts/framework13/hardware-configuration.nix
 
           home-manager.nixosModules.home-manager
-          # homeManagerConfig
+          homeManagerConfig
           {
-            home-manager = {
-              extraSpecialArgs = {inherit inputs;};
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              users.yhattori = {
-                imports = [
-                  ./modules/home/framework13.nix
-                ];
-              };
-            };
+            home-manager.users.yhattori.imports = [
+              ./modules/home/framework13.nix
+            ];
           }
 
           opencodeOverlay

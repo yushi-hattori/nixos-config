@@ -20,7 +20,7 @@
       "ls" = "eza";
       "grep" = "grep --color=auto";
     };
-    initExtra = ''
+    initContent = ''
       source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
       if [ -f "$HOME/.env" ]; then
         set -a
