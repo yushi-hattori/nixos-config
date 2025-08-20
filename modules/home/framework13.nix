@@ -14,6 +14,7 @@
         withVencord = false;
       })
       spotify
+      easyeffects
     ];
 
     sessionVariables = {
