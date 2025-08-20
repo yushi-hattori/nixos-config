@@ -14,6 +14,8 @@
         withVencord = false;
       })
       spotify
+      obsidian
+      obs-studio
     ];
 
     sessionVariables = {
