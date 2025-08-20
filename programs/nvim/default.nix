@@ -261,7 +261,7 @@ in {
           settings = {
             wrapRc = false;
             # configDirName = "nvim";
-            unwrappedCfgPath = "${config.home.homeDirectory}/nixos-config/programs/nixCats/";
+            unwrappedCfgPath = "${config.home.homeDirectory}/nixos-config/programs/nvim/";
             # IMPORTANT:
             # your alias may not conflict with your other packages.
             aliases = ["nvim" "vim" "nixCats"];

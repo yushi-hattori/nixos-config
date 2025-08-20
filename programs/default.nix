@@ -7,7 +7,7 @@
     ./git.nix
     ./bash.nix
     ./lazygit.nix
-    ./nixCats/default.nix
+    ./nvim/default.nix
     ./zellij.nix
     ./zsh.nix
     ./zoxide.nix

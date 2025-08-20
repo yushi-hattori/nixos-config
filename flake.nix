@@ -105,7 +105,6 @@
         modules = [
           ./modules/hosts/framework13/configuration.nix
           ./modules/hosts/framework13/hardware-configuration.nix
-          ./modules/hosts/default.nix
 
           home-manager.nixosModules.home-manager
           # homeManagerConfig
@@ -116,7 +115,6 @@
               useUserPackages = true;
               users.yhattori = {
                 imports = [
-                  ./modules/home/default.nix
                   ./modules/home/framework13.nix
                 ];
               };
