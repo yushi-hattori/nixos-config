@@ -18,6 +18,8 @@
       flake = false;
     };
 
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
     nixCats = {
       url = "github:BirdeeHub/nixCats-nvim";
       inputs = {
@@ -49,6 +51,7 @@
     home-manager,
     nixCats,
     opencode,
+    nixos-hardware,
     ...
   } @ inputs: let
     system = "x86_64-linux";
@@ -122,6 +125,8 @@
           }
 
           opencodeOverlay
+
+          nixos-hardware.nixosModules.framework-amd-ai-300-series
         ];
       };
 
