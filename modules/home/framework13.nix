@@ -16,6 +16,9 @@
       spotify
       obsidian
       obs-studio
+      tree
+      gparted
+      gimp
     ];
 
     sessionVariables = {
