@@ -1,13 +1,18 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   imports = [
     ./default.nix
     ../../programs/easyeffects.nix
+    ../../programs/zen-browser.nix
   ];
 
   home = {
     packages = with pkgs; [
       ghostty
-      vivaldi
+      # vivaldi
       udiskie
       (discord.override {
         withOpenASAR = true;
