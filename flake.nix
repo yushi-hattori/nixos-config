@@ -27,6 +27,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    hyprland.url = "github:hyprwm/Hyprland";
+
     # Neovim
 
     nixCats = {
@@ -58,6 +60,7 @@
     nixpkgs-unstable,
     nixos-wsl,
     home-manager,
+    hyprland,
     nixCats,
     zen-browser,
     opencode,
@@ -119,6 +122,7 @@
         modules = [
           ./modules/hosts/framework13/configuration.nix
           ./modules/hosts/framework13/hardware-configuration.nix
+          ./modules/hyprland.nix
 
           home-manager.nixosModules.home-manager
           homeManagerConfig

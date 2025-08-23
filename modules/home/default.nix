@@ -24,6 +24,7 @@
       aider-chat
       nix-prefetch-github
       openssh
+      htop-vim
     ];
   };
 
