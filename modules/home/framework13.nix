@@ -24,6 +24,7 @@
       tree
       gparted
       gimp
+      steam
     ];
 
     sessionVariables = {
