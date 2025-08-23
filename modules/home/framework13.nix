@@ -10,6 +10,12 @@
     inputs.hyprland.homeManagerModules.default
   ];
 
+  programs.quickshell = {
+    enable = true;
+    package = inputs.caelestia-shell.packages.${pkgs.system}.default.override {withCli = true;};
+    systemd.enable = true;
+  };
+
   wayland.windowManager.hyprland = {
     enable = true;
     # set the flake package
@@ -17,8 +23,26 @@
     portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
     # Optional: specify settings here or use a separate config file
     # settings = {
-    #   # Your hyprland configuration
+    #   decoration = {
+    #     shadow_offset = "0 5";
+    #     "col.shadow" = "rgba(00000099)";
+    #   };
+    #
+    #   "$mod" = "SUPER";
+    #
+    #   bindm = [
+    #     # mouse movements
+    #     "$mod, mouse:272, movewindow"
+    #     "$mod, mouse:273, resizewindow"
+    #     "$mod ALT, mouse:272, resizewindow"
+    #   ];
     # };
+    # plugins = [
+    #   pkgs.hyprlandPlugins.PLUGIN_NAME
+    # ];
+    # plugins = [
+    #   inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.PLUGIN_NAME
+    # ];
   };
 
   home = {

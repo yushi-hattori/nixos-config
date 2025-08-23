@@ -131,12 +131,15 @@
   services.hardware.bolt.enable = true;
 
   # USB Flash Drive Auto-Mount
-  services.udisks2.enable = true;
+  # services.udisks2.enable = true;
   services.gvfs.enable = true;
 
   # Spotify
   networking.firewall.allowedTCPPorts = [57621];
   networking.firewall.allowedUDPPorts = [5353];
+
+  # Hyprland
+  services.udisks2.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

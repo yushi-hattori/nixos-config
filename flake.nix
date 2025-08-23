@@ -27,7 +27,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Hyprland
     hyprland.url = "github:hyprwm/Hyprland";
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland"; # Prevents version mismatch.
+    };
+    caelestia-shell = {
+      url = "github:caelestia-dots/shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Neovim
 
