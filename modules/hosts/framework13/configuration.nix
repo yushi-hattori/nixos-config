@@ -88,7 +88,7 @@
     description = "Yushi";
     extraGroups = ["networkmanager" "wheel"];
     packages = with pkgs; [
-      kdePackages.kate
+      # kdePackages.kate
       plasma5Packages.plasma-thunderbolt # Enables thunderbolt
       #  thunderbird
     ];
