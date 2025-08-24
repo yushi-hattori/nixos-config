@@ -20,7 +20,6 @@
       zoxide
       xclip
       zsh-vi-mode
-      thefuck
       aider-chat
       nix-prefetch-github
       openssh

@@ -1,6 +1,7 @@
 # Edit this configuration file to define what should be installed on
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 {
+  inputs,
   config,
   pkgs,
   ...
@@ -52,7 +53,7 @@
 
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = false;
+  services.desktopManager.plasma6.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -88,9 +89,9 @@
     description = "Yushi";
     extraGroups = ["networkmanager" "wheel"];
     packages = with pkgs; [
-      # kdePackages.kate
       plasma5Packages.plasma-thunderbolt # Enables thunderbolt
       #  thunderbird
+      kitty
     ];
   };
 
@@ -137,9 +138,6 @@
   # Spotify
   networking.firewall.allowedTCPPorts = [57621];
   networking.firewall.allowedUDPPorts = [5353];
-
-  # Hyprland
-  services.udisks2.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

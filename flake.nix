@@ -2,7 +2,7 @@
   description = "My nixos flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
@@ -24,17 +24,6 @@
       url = "github:0xc000022070/zen-browser-flake";
       # IMPORTANT: we're using "libgbm" and is only available in unstable so ensure
       # to have it up-to-date or simply don't specify the nixpkgs input
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # Hyprland
-    hyprland.url = "github:hyprwm/Hyprland";
-    hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins";
-      inputs.hyprland.follows = "hyprland"; # Prevents version mismatch.
-    };
-    caelestia-shell = {
-      url = "github:caelestia-dots/shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -69,7 +58,6 @@
     nixpkgs-unstable,
     nixos-wsl,
     home-manager,
-    hyprland,
     nixCats,
     zen-browser,
     opencode,
@@ -105,7 +93,7 @@
             {...}: {
               nixpkgs.overlays = [
                 (final: prev: {
-                  opencode = nixpkgs-unstable.legacyPackages.${prev.system}.opencode.overrideAttrs (old: {
+                  opencode = nixpkgs.legacyPackages.${prev.system}.opencode.overrideAttrs (old: {
                     version = "0.3.58";
                     src = opencode;
                     node_modules = old.node_modules.overrideAttrs (nmOld: {
@@ -131,7 +119,6 @@
         modules = [
           ./modules/hosts/framework13/configuration.nix
           ./modules/hosts/framework13/hardware-configuration.nix
-          ./modules/hyprland.nix
 
           home-manager.nixosModules.home-manager
           homeManagerConfig

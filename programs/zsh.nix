@@ -41,7 +41,6 @@
         "git"
         "sudo"
         "docker"
-        "thefuck"
       ];
     };
   };
