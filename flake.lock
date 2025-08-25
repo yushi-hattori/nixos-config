@@ -23,16 +23,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1748665073,
-        "narHash": "sha256-RMhjnPKWtCoIIHiuR9QKD7xfsKb3agxzMfJY8V9MOew=",
+        "lastModified": 1756022458,
+        "narHash": "sha256-J1i35r4HfNDdPpwL0vOBaZopQudAUVtartEerc1Jryc=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "282e1e029cb6ab4811114fc85110613d72771dea",
+        "rev": "9e3a33c0bcbc25619e540b9dfea372282f8a9740",
         "type": "github"
       },
       "original": {
         "owner": "nix-community",
-        "ref": "release-25.05",
         "repo": "home-manager",
         "type": "github"
       }
@@ -174,6 +173,29 @@
         "type": "github"
       }
     },
+    "plasma-manager": {
+      "inputs": {
+        "home-manager": [
+          "home-manager"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1754575879,
+        "narHash": "sha256-aHTxuS6ZWUsupYJaxSO+uaHlvU3rywnqITAPkWQ2ZKc=",
+        "owner": "AlexNabokikh",
+        "repo": "plasma-manager",
+        "rev": "c3da2f1d1b7047388c255fce9f17ea9aa3b01bf9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AlexNabokikh",
+        "repo": "plasma-manager",
+        "type": "github"
+      }
+    },
     "plugins-debugmaster": {
       "flake": false,
       "locked": {
@@ -231,6 +253,7 @@
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "opencode": "opencode",
+        "plasma-manager": "plasma-manager",
         "plugins-debugmaster": "plugins-debugmaster",
         "plugins-nui": "plugins-nui",
         "plugins-opencode": "plugins-opencode",

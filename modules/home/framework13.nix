@@ -4,6 +4,7 @@
   ...
 }: {
   imports = [
+    inputs.plasma-manager.homeManagerModules.plasma-manager
     ./default.nix
     ../../programs/easyeffects.nix
     ../../programs/zen-browser.nix
@@ -26,6 +27,9 @@
       gparted
       gimp
       steam
+      kde-rounded-corners
+      kdePackages.kcalc
+      kdePackages.krohnkite
     ];
 
     sessionVariables = {
